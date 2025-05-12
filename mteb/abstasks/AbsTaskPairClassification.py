@@ -84,8 +84,8 @@ class AbsTaskPairClassification(AbsTask):
             "sentence_transformers.evaluation.PairClassificationEvaluator"
         ).setLevel(logging.WARN)
         evaluator = PairClassificationEvaluator(
-            data_split["sentence1"],
-            data_split["sentence2"],
+            [self.metadata.prompt.get("query", "") + line for line in data_split["sentence1"]],
+            [self.metadata.prompt.get("passage", "") + line for line in data_split["sentence2"]],
             data_split["labels"],
             task_name=self.metadata.name,
             **kwargs,

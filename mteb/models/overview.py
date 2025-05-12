@@ -21,6 +21,7 @@ from mteb.models import (
     blip2_models,
     blip_models,
     bm25,
+    bysearch_models,
     cde_models,
     chain19_models,
     clip_models,

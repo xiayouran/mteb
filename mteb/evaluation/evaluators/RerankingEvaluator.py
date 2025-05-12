@@ -65,6 +65,18 @@ class RerankingEvaluator(Evaluator):
             for sample in self.samples
             if len(sample["positive"]) > 0 and len(sample["negative"]) > 0
         ]
+        for sample in self.samples:
+            sample["query"] = kwargs['task_metadata'].prompt.get('query', '') + sample["query"]
+            if isinstance(sample["positive"], list):
+                sample["positive"] = [kwargs['task_metadata'].prompt.get('passage', '') + text
+                                      for text in sample["positive"]]
+            else:
+                sample["positive"] = kwargs['task_metadata'].prompt.get('passage', '') + sample["positive"]
+            if isinstance(sample["positive"], list):
+                sample["negative"] = [kwargs['task_metadata'].prompt.get('passage', '') + text
+                                      for text in sample["negative"]]
+            else:
+                sample["negative"] = kwargs['task_metadata'].prompt.get('passage', '') + sample["negative"]
 
     def __call__(self, model: Encoder):
         scores = self.compute_metrics(model)

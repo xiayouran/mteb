@@ -81,8 +81,8 @@ class AbsTaskClustering(AbsTask):
         v_measures = []
         for cluster_set in tqdm.tqdm(dataset, desc="Clustering"):
             evaluator = ClusteringEvaluator(
-                cluster_set["sentences"],  # type: ignore
-                cluster_set["labels"],  # type: ignore
+                [self.metadata.prompt.get("query", "") + line for line in cluster_set["sentences"]],  # type: ignore
+                [self.metadata.prompt.get("passage", "") + line for line in cluster_set["labels"]],  # type: ignore
                 task_name=self.metadata.name,
                 **kwargs,
             )

@@ -177,8 +177,8 @@ class AbsTaskClassification(AbsTask):
             )
             # Bootstrap `self.samples_per_label` samples per label for each split
             X_sampled, y_sampled, idxs = self._undersample_data(
-                train_split["text"],  # type: ignore
-                train_split["label"],  # type: ignore
+                [self.metadata.prompt.get("query", "") + line for line in train_split["text"]],  # type: ignore
+                [self.metadata.prompt.get("passage", "") + line for line in train_split["label"]],  # type: ignore
                 self.samples_per_label,
                 idxs,
             )
@@ -187,8 +187,8 @@ class AbsTaskClassification(AbsTask):
                 evaluator = kNNClassificationEvaluator(
                     X_sampled,
                     y_sampled,
-                    eval_split["text"],  # type: ignore
-                    eval_split["label"],  # type: ignore
+                    [self.metadata.prompt.get("query", "") + line for line in eval_split["text"]],  # type: ignore
+                    [self.metadata.prompt.get("passage", "") + line for line in eval_split["label"]],  # type: ignore
                     task_name=self.metadata.name,
                     encode_kwargs=encode_kwargs,
                     **params,
@@ -197,8 +197,8 @@ class AbsTaskClassification(AbsTask):
                 evaluator = kNNClassificationEvaluatorPytorch(
                     X_sampled,
                     y_sampled,
-                    eval_split["text"],  # type: ignore
-                    eval_split["label"],  # type: ignore
+                    [self.metadata.prompt.get("query", "") + line for line in eval_split["text"]],  # type: ignore
+                    [self.metadata.prompt.get("passage", "") + line for line in eval_split["label"]],  # type: ignore
                     task_name=self.metadata.name,
                     encode_kwargs=encode_kwargs,
                     **params,
@@ -207,8 +207,8 @@ class AbsTaskClassification(AbsTask):
                 evaluator = logRegClassificationEvaluator(
                     X_sampled,
                     y_sampled,
-                    eval_split["text"],  # type: ignore
-                    eval_split["label"],  # type: ignore
+                    [self.metadata.prompt.get("query", "") + line for line in eval_split["text"]],  # type: ignore
+                    [self.metadata.prompt.get("passage", "") + line for line in eval_split["label"]],  # type: ignore
                     task_name=self.metadata.name,
                     encode_kwargs=encode_kwargs,
                     **params,

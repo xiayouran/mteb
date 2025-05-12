@@ -89,6 +89,7 @@ class AbsTaskReranking(AbsTask):
             data_split,
             task_name=self.metadata.name,
             encode_kwargs=encode_kwargs,
+            task_metadata=self.metadata,
             **kwargs,
         )
         scores = evaluator(model)

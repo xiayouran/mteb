@@ -79,8 +79,8 @@ class AbsTaskSTS(AbsTask):
 
         normalized_scores = list(map(normalize, data_split["score"]))
         evaluator = STSEvaluator(
-            data_split["sentence1"],
-            data_split["sentence2"],
+            [self.metadata.prompt.get("query", "") + line for line in data_split["sentence1"]],
+            [self.metadata.prompt.get("passage", "") + line for line in data_split["sentence2"]],
             normalized_scores,
             task_name=self.metadata.name,
             **kwargs,

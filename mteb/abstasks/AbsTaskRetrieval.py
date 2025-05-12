@@ -350,6 +350,12 @@ class AbsTaskRetrieval(AbsTask):
         self, retriever, corpus, queries, relevant_docs, hf_subset: str, **kwargs
     ) -> ScoresDict:
         start_time = time()
+        for k, v in queries.items():
+            queries[k] = self.metadata.prompt.get("query", "") + v
+        for k, item in corpus.items():
+            for k1, v in item.items():
+                item[k1] = self.metadata.prompt.get("passage", "") + v
+            corpus[k] = item
         results = retriever(corpus, queries)
         end_time = time()
         logger.info(f"Time taken to retrieve: {end_time - start_time:.2f} seconds")
