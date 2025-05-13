@@ -99,6 +99,7 @@ model_modules = [
     blip2_models,
     blip_models,
     bm25,
+    bysearch_models,
     clip_models,
     codesage_models,
     cde_models,

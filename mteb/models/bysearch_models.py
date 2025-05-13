@@ -25,9 +25,8 @@ bysearch_zh_datasets = {
     "CMedQAv2-reranking": ["train"],
 }
 
-
-bysearch_embedding = ModelMeta(
-    name="PeopleAI/BySearch-Embedding",
+bysearch_embedding_ckpt_7500_no_prompt = ModelMeta(
+    name="PeopleAI/BySearch-Embedding-checkpoint-7500_no_prompt",
     revision="",
     release_date="2025-04-24",
     languages=[
@@ -35,7 +34,7 @@ bysearch_embedding = ModelMeta(
     ],
     loader=partial(
         sentence_transformers_loader,
-        model_name="PeopleAI/BySearch-Embedding",
+        model_name="PeopleAI/BySearch-Embedding-checkpoint-7500_no_prompt",
     ),
     max_tokens=512,
     embed_dim=1536,
@@ -55,31 +54,3 @@ bysearch_embedding = ModelMeta(
     public_training_data=None,
 )
 
-bysearch_embedding_ckpy_18000 = ModelMeta(
-    name="PeopleAI/BySearch-Embedding-checkpoint-18000",
-    revision="",
-    release_date="2025-04-24",
-    languages=[
-        "zho-Hans",
-    ],
-    loader=partial(
-        sentence_transformers_loader,
-        model_name="PeopleAI/BySearch-Embedding-checkpoint-18000",
-    ),
-    max_tokens=512,
-    embed_dim=1536,
-    open_weights=False,
-    n_parameters=None,
-    memory_usage_mb=None,
-    license="apache-2.0",
-    reference="https://huggingface.co/PeopleAI/BySearch-Embedding",
-    similarity_fn_name="cosine",
-    framework=["Sentence Transformers", "PyTorch"],
-    use_instructions=False,
-    training_datasets={
-        **bge_full_data,
-        **bysearch_zh_datasets,
-    },
-    public_training_code=None,
-    public_training_data=None,
-)
