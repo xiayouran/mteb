@@ -178,7 +178,8 @@ class AbsTaskClassification(AbsTask):
             # Bootstrap `self.samples_per_label` samples per label for each split
             X_sampled, y_sampled, idxs = self._undersample_data(
                 [self.metadata.prompt.get("query", "") + line for line in train_split["text"]],  # type: ignore
-                [self.metadata.prompt.get("passage", "") + line for line in train_split["label"]],  # type: ignore
+                # [self.metadata.prompt.get("passage", "") + line for line in train_split["label"]],  # type: ignore
+                train_split["label"],
                 self.samples_per_label,
                 idxs,
             )
@@ -188,7 +189,8 @@ class AbsTaskClassification(AbsTask):
                     X_sampled,
                     y_sampled,
                     [self.metadata.prompt.get("query", "") + line for line in eval_split["text"]],  # type: ignore
-                    [self.metadata.prompt.get("passage", "") + line for line in eval_split["label"]],  # type: ignore
+                    # [self.metadata.prompt.get("passage", "") + line for line in eval_split["label"]],  # type: ignore
+                    eval_split["label"],
                     task_name=self.metadata.name,
                     encode_kwargs=encode_kwargs,
                     **params,
@@ -198,7 +200,8 @@ class AbsTaskClassification(AbsTask):
                     X_sampled,
                     y_sampled,
                     [self.metadata.prompt.get("query", "") + line for line in eval_split["text"]],  # type: ignore
-                    [self.metadata.prompt.get("passage", "") + line for line in eval_split["label"]],  # type: ignore
+                    # [self.metadata.prompt.get("passage", "") + line for line in eval_split["label"]],  # type: ignore
+                    eval_split["label"],
                     task_name=self.metadata.name,
                     encode_kwargs=encode_kwargs,
                     **params,
@@ -208,7 +211,8 @@ class AbsTaskClassification(AbsTask):
                     X_sampled,
                     y_sampled,
                     [self.metadata.prompt.get("query", "") + line for line in eval_split["text"]],  # type: ignore
-                    [self.metadata.prompt.get("passage", "") + line for line in eval_split["label"]],  # type: ignore
+                    # [self.metadata.prompt.get("passage", "") + line for line in eval_split["label"]],  # type: ignore
+                    eval_split["label"],
                     task_name=self.metadata.name,
                     encode_kwargs=encode_kwargs,
                     **params,
